@@ -20,3 +20,13 @@ test('user can delete a task', async ({page}) => {
     
     expect(tasks).not.toContain('Test Task');
 })
+
+test('user can mark a task as comlete', async({page}) => {
+    await page.goto('http://localhost:5500');
+    await page.fill('#task-input', 'Test Task');
+    await page.click('#add-task');
+
+    await page.click('.task .task-complete');
+    const completeTask = await page.$('.task.completed');
+    expect(completeTask).not.toBeNull();
+})
